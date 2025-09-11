@@ -1,0 +1,51 @@
+{
+  "name": "video-recorder-mcp",
+  "version": "2.0.0",
+  "description": "Model Context Protocol server for recording HTML/URLs as video with screenshots, audio support, and customizable presets",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "echo \"No tests yet\" && exit 0",
+    "lint": "echo \"No linting configured\" && exit 0"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "video-recording",
+    "html-to-video",
+    "screenshots",
+    "automation",
+    "education",
+    "content-creation"
+  ],
+  "author": "Video Recorder MCP Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aihenryai/video-recorder-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aihenryai/video-recorder-mcp/issues"
+  },
+  "homepage": "https://github.com/aihenryai/video-recorder-mcp#readme",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.6.0",
+    "puppeteer": "^23.1.1",
+    "fluent-ffmpeg": "^2.1.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "preferGlobal": false,
+  "files": [
+    "src/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "bin": {
+    "video-recorder-mcp": "./src/index.js"
+  }
+}
