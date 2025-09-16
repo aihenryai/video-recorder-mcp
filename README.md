@@ -1,265 +1,307 @@
-# Video Recorder MCP
+# 🎬 Video Recorder MCP
 
-A Model Context Protocol (MCP) server for recording HTML content and URLs as videos with advanced customization options.
+An MCP (Model Context Protocol) server for recording HTML content and URLs to video files with precise timing control.
 
-## 🎬 Features
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org)
+[![MCP SDK](https://img.shields.io/badge/MCP-SDK-blue)](https://github.com/modelcontextprotocol/sdk)
 
-- **HTML to Video**: Convert HTML content directly to video
-- **URL Recording**: Capture any webpage as video content  
-- **Multiple Presets**: YouTube, Instagram, TikTok, and custom formats
-- **Audio Support**: Add background audio tracks to videos
-- **Subtitle Support**: Embed text overlays and captions
-- **Customizable Output**: Control dimensions, FPS, and quality
-- **Screenshot-based**: Uses Puppeteer for high-quality rendering
-- **FFmpeg Integration**: Professional video encoding and processing
+## ✨ Features
 
-## 🛠 Requirements
+- 🎯 **Precise Timing Control** - Define exact duration for each slide/section
+- 📹 **HTML to Video** - Convert any HTML content to MP4 videos
+- 🌐 **URL Recording** - Record any website or web application
+- 🎵 **Audio Support** - Add background music or narration to recordings  
+- 🎞️ **High Quality** - Configurable resolution and frame rate (up to 1080p, 60fps)
+- 🎨 **Animation Support** - Preserves CSS animations and transitions
+- 📁 **Organized Output** - Automatic file management with unique job IDs
 
-### System Dependencies
-- **Node.js** 18.0.0 or higher
-- **FFmpeg** (required for video processing)
-- **Chromium/Chrome** (installed automatically with Puppeteer)
+## 📋 Prerequisites
 
-### FFmpeg Installation
+### Required Software
+- **Node.js** >= 18.0.0
+- **npm** >= 8.0.0
+- **FFmpeg** - Must be installed and accessible in PATH
+
+### Installing FFmpeg
+
+#### Windows
 ```bash
-# Ubuntu/Debian
-sudo apt update && sudo apt install ffmpeg
-
-# macOS with Homebrew
-brew install ffmpeg
-
-# Windows with Chocolatey
+# Using Chocolatey
 choco install ffmpeg
+
+# Or download from: https://ffmpeg.org/download.html
 ```
 
-## 📦 Installation
+#### macOS
+```bash
+# Using Homebrew
+brew install ffmpeg
+```
 
-### Option 1: Clone Repository
+#### Linux
+```bash
+# Ubuntu/Debian
+sudo apt update
+sudo apt install ffmpeg
+
+# Fedora
+sudo dnf install ffmpeg
+
+# Arch
+sudo pacman -S ffmpeg
+```
+
+## 🚀 Installation
+
+1. **Clone the repository**
 ```bash
 git clone https://github.com/aihenryai/video-recorder-mcp.git
 cd video-recorder-mcp
+```
+
+2. **Install dependencies**
+```bash
 npm install
 ```
 
-### Option 2: NPM Package (coming soon)
-```bash
-npm install -g video-recorder-mcp
-```
+3. **Configure Claude Desktop**
 
-## 🚀 Usage
+Add to your Claude Desktop configuration file:
 
-### With Claude Desktop
-
-Add to your `claude_desktop_config.json`:
+**Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+**Linux**: `~/.config/Claude/claude_desktop_config.json`
 
 ```json
 {
   "mcpServers": {
     "video-recorder": {
       "command": "node",
-      "args": ["/path/to/video-recorder-mcp/src/index.js"],
+      "args": ["C:/path/to/video-recorder-mcp/src/index.js"],
       "env": {}
     }
   }
 }
 ```
 
-### Standalone Usage
+4. **Start the server**
 ```bash
 npm start
-# or
-node src/index.js
 ```
 
-## 🎯 Available Tools
-
-### 1. record_html_to_video
-Convert HTML content to video format.
-
-**Parameters:**
-- `html` (required): HTML content to record
-- `outputPath` (required): Output video file path
-- `duration`: Recording duration in seconds (default: 5)
-- `fps`: Frames per second (default: 2)
-- `width`: Video width in pixels (default: 1920)
-- `height`: Video height in pixels (default: 1080)
-- `preset`: Video preset - "youtube", "instagram", "tiktok", "custom" (default: "youtube")
-- `audioPath`: Optional background audio file path
-- `subtitles`: Optional subtitles text
-
-### 2. record_url_to_video
-Record any webpage URL as video.
-
-**Parameters:**
-- `url` (required): URL to record
-- `outputPath` (required): Output video file path
-- `duration`: Recording duration in seconds (default: 10)
-- `fps`: Frames per second (default: 2) 
-- `width`: Video width in pixels (default: 1920)
-- `height`: Video height in pixels (default: 1080)
-- `preset`: Video preset (default: "youtube")
-- `audioPath`: Optional background audio file path
-- `subtitles`: Optional subtitles text
-
-## 📐 Presets
-
-| Preset | Resolution | Aspect Ratio | Use Case |
-|--------|------------|--------------|----------|
-| youtube | 1920×1080 | 16:9 | YouTube videos |
-| instagram | 1080×1080 | 1:1 | Instagram posts |
-| tiktok | 1080×1920 | 9:16 | TikTok/Stories |
-| custom | User-defined | Custom | Custom requirements |
-
-## 💡 Example Usage
-
-### Simple HTML Recording
-```javascript
-// Through MCP client (like Claude)
-record_html_to_video({
-  html: "<h1>Hello World!</h1><p>This is a test video.</p>",
-  outputPath: "./output/hello-world.mp4",
-  duration: 5,
-  preset: "youtube"
-})
-```
-
-### URL Recording with Audio
-```javascript
-record_url_to_video({
-  url: "https://example.com",
-  outputPath: "./output/website-demo.mp4",
-  duration: 10,
-  audioPath: "./audio/background-music.mp3",
-  preset: "instagram"
-})
-```
-
-### Advanced HTML with Subtitles
-```javascript
-record_html_to_video({
-  html: `
-    <div style="font-family: Arial; text-align: center; padding: 50px;">
-      <h1>Product Demo</h1>
-      <p>This is our amazing new feature!</p>
-    </div>
-  `,
-  outputPath: "./output/product-demo.mp4",
-  duration: 8,
-  width: 1920,
-  height: 1080,
-  fps: 3,
-  subtitles: "Welcome to our product demo - showcasing new features",
-  audioPath: "./audio/demo-music.mp3"
-})
-```
-
-## 🏗 Architecture
-
-```
-Video Recorder MCP
-├── Browser Control (Puppeteer)
-│   ├── HTML Rendering
-│   ├── Screenshot Capture
-│   └── Dynamic Content Handling
-├── Video Processing (FFmpeg)
-│   ├── Frame Sequence Conversion
-│   ├── Audio Track Mixing
-│   └── Subtitle Overlay
-└── MCP Protocol Interface
-    ├── Tool Registration
-    ├── Parameter Validation
-    └── Error Handling
-```
-
-## 🔧 Configuration
-
-### Environment Variables
-- `PUPPETEER_EXECUTABLE_PATH`: Custom Chrome/Chromium path
-- `FFMPEG_PATH`: Custom FFmpeg binary path
-- `TEMP_DIR`: Custom temporary directory (default: system temp)
-
-### Performance Tuning
-For better performance on servers:
+For development with auto-restart:
 ```bash
-export PUPPETEER_ARGS="--no-sandbox --disable-dev-shm-usage"
+npm run dev
 ```
+
+## 📖 Usage
+
+### Basic Recording with Multiple Slides
+
+```javascript
+// Record a presentation with different timing for each slide
+record_html_to_video({
+  input: `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <style>
+        .slide {
+          display: none;
+          width: 100vw;
+          height: 100vh;
+          font-family: Arial;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 3em;
+        }
+        .slide:first-child { display: flex; background: #FF6B6B; }
+        .slide:nth-child(2) { background: #4ECDC4; }
+        .slide:nth-child(3) { background: #45B7D1; }
+      </style>
+    </head>
+    <body>
+      <div class="slide">Welcome - 3 seconds</div>
+      <div class="slide">Main Content - 5 seconds</div>
+      <div class="slide">Thank You - 2 seconds</div>
+    </body>
+    </html>
+  `,
+  slideTimings: [3, 5, 2],  // Duration for each slide in seconds
+  fps: 30,
+  width: 1920,
+  height: 1080
+})
+```
+
+### Recording a Website with Audio
+
+```javascript
+record_html_to_video({
+  input: "https://example.com",
+  slideTimings: [5, 10, 5],  // Different sections of the page
+  audioPath: "C:/path/to/narration.mp3",
+  fps: 30,
+  width: 1920,
+  height: 1080
+})
+```
+
+### Single Page Recording
+
+```javascript
+// For a single static page, use one timing value
+record_html_to_video({
+  input: "<h1>Hello World</h1>",
+  slideTimings: [10],  // Record for 10 seconds
+  fps: 24,
+  width: 1280,
+  height: 720
+})
+```
+
+## 🔧 API Reference
+
+### Tools
+
+#### `record_html_to_video`
+Records HTML content or URL to a video file with precise timing control.
+
+**Parameters:**
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `input` | string | Yes | - | HTML content or URL to record |
+| `slideTimings` | array | No | [10] | Duration in seconds for each slide/section |
+| `fps` | number | No | 30 | Frames per second (1-60) |
+| `width` | number | No | 1920 | Video width in pixels |
+| `height` | number | No | 1080 | Video height in pixels |
+| `audioPath` | string | No | - | Path to audio file (mp3/wav) |
+
+**Returns:**
+```javascript
+{
+  jobId: "unique-job-id",
+  outputPath: "/path/to/output.mp4",
+  duration: 15,  // Total duration in seconds
+  slideTimings: [3, 5, 7],
+  resolution: "1920x1080",
+  fps: 30
+}
+```
+
+#### `list_recordings`
+Lists all available recordings with metadata.
+
+**Returns:**
+```javascript
+[
+  {
+    jobId: "job-id",
+    path: "/path/to/video.mp4",
+    size: "12.5 MB",
+    created: "2025-01-16T10:30:00Z"
+  }
+]
+```
+
+#### `get_recording_status`
+Gets the status of a specific recording job.
+
+**Parameters:**
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `jobId` | string | Yes | The job ID to check |
+
+## 🎯 How It Works
+
+1. **Content Loading**: The server loads your HTML or navigates to the URL
+2. **Slide Detection**: Automatically detects slides/sections in your content
+3. **Frame Generation**: Captures screenshots at the specified FPS for each slide
+4. **Timing Control**: Server-side control ensures precise timing for each section
+5. **Video Encoding**: FFmpeg combines frames into a high-quality MP4 video
+6. **Audio Mixing**: Optional audio track is synchronized with the video
+
+## 📁 Project Structure
+
+```
+video-recorder-mcp/
+├── src/
+│   └── index.js           # Main MCP server implementation
+├── recordings/            # Output directory for videos
+│   └── [job-id]/         # Each recording in its own folder
+│       ├── frames/       # Temporary frame storage
+│       └── output.mp4    # Final video file
+├── package.json          # Dependencies and scripts
+├── LICENSE              # MIT License
+├── .gitignore          # Git ignore rules
+└── README.md           # This file
+```
+
+## ⚙️ Configuration
+
+### Limitations
+- Maximum video duration: 5 minutes (300 seconds)
+- Maximum resolution: 4K (3840x2160)
+- Supported audio formats: MP3, WAV, AAC
+
+### Performance Tips
+- Lower FPS (24-30) for presentations
+- Higher FPS (60) for animations
+- Optimize HTML/CSS for better performance
+- Pre-compress audio files
 
 ## 🐛 Troubleshooting
 
 ### Common Issues
 
-**FFmpeg not found:**
-```bash
-# Verify FFmpeg installation
-ffmpeg -version
+#### FFmpeg not found
+```
+Error: FFmpeg not found in PATH
+```
+**Solution**: Install FFmpeg and ensure it's in your system PATH.
 
-# Add to PATH if needed (Linux/macOS)
-export PATH=$PATH:/usr/local/bin
+#### Browser launch failed
+```
+Error: Failed to launch browser
+```
+**Solution**: Install required dependencies:
+```bash
+# Ubuntu/Debian
+sudo apt-get install -y libx11-xcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6
+
+# Windows - Usually works out of the box
+# macOS - Usually works out of the box
 ```
 
-**Puppeteer Chrome issues:**
-```bash
-# Install dependencies (Ubuntu)
-sudo apt install -y gconf-service libasound2 libatk1.0-0 libc6 libcairo2 \
-  libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 \
-  libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 \
-  libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 \
-  libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 \
-  libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation \
-  libappindicator1 libnss3 lsb-release xdg-utils wget
-```
-
-**Memory issues with large videos:**
-- Reduce FPS (use 1-2 for most cases)
-- Decrease video dimensions
-- Split long recordings into segments
+#### Memory issues with long recordings
+**Solution**: Reduce FPS or resolution, or split into shorter segments.
 
 ## 🤝 Contributing
 
-We welcome contributions! Please:
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes with tests
-4. Submit a pull request
-
-### Development Setup
-```bash
-git clone https://github.com/aihenryai/video-recorder-mcp.git
-cd video-recorder-mcp
-npm install
-npm run dev  # Watch mode for development
-```
-
-## 📋 Roadmap
-
-- [ ] **Real-time Streaming**: WebRTC integration for live recording
-- [ ] **AI Optimization**: Intelligent frame sampling and quality optimization  
-- [ ] **React/Vue Support**: Direct framework rendering capabilities
-- [ ] **Cloud Storage**: Direct upload to AWS S3, Google Drive, etc.
-- [ ] **Batch Processing**: Multiple URL/HTML recording in parallel
-- [ ] **Custom Transitions**: Slide transitions and effects
-- [ ] **Interactive Elements**: Click simulation and form filling
-- [ ] **Mobile Responsiveness**: Device emulation and responsive testing
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) file for details.
-
-## 🔗 Links
-
-- **Repository**: https://github.com/aihenryai/video-recorder-mcp
-- **Issues**: https://github.com/aihenryai/video-recorder-mcp/issues
-- **MCP Documentation**: https://modelcontextprotocol.io/docs
-- **NPM Package**: (coming soon)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- Built with the [Model Context Protocol](https://modelcontextprotocol.io/)
-- Powered by [Puppeteer](https://pptr.dev/) for browser automation
-- Video processing by [FFmpeg](https://ffmpeg.org/)
-- Developed for the Claude AI ecosystem
+- [Puppeteer](https://pptr.dev/) - Headless Chrome automation
+- [FFmpeg](https://ffmpeg.org/) - Video processing
+- [MCP SDK](https://github.com/modelcontextprotocol/sdk) - Model Context Protocol
+
+## 📧 Support
+
+For issues and questions, please [open an issue](https://github.com/aihenryai/video-recorder-mcp/issues) on GitHub.
 
 ---
 
-**Made with ❤️ for the AI and automation community**
+**Made with ❤️ by Henry**
