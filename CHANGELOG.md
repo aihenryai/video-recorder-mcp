@@ -1,146 +1,62 @@
 # Changelog
 
-All notable changes to the Video Recorder MCP project will be documented in this file.
+All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0] - 2024-09-11
+## [1.0.0] - 2025-01-16
 
-### 🎉 Major Release - Complete Rewrite
+### 🎉 Public Release - Production Ready
 
-#### Added
-- **Multi-format Support**: HTML and URL recording capabilities
-- **Advanced Presets**: YouTube (16:9), Instagram (1:1), TikTok (9:16), and custom formats
-- **Audio Integration**: Background audio track support for all recordings
-- **Subtitle System**: Text overlay and caption support
-- **Professional FFmpeg Integration**: High-quality video encoding with custom parameters
-- **Puppeteer-based Rendering**: Chrome engine for accurate HTML/CSS rendering
-- **Flexible Configuration**: Customizable FPS, dimensions, duration, and quality
-- **Error Recovery**: Robust error handling and cleanup mechanisms
-- **Temporary File Management**: Automatic cleanup of intermediate files
-- **Cross-platform Support**: Windows, macOS, and Linux compatibility
+### Added
+- **Precise Slide Timing Control**: New `slideTimings` array parameter for exact control of each slide duration
+- **Server-Controlled Timing**: Server-side timing mechanism ensures perfect accuracy
+- **Multi-Slide Support**: Automatic detection and control of slides in HTML content
+- **Slide Control API**: Injectable JavaScript API for managing slide transitions
+- **Enhanced Frame Generation**: Precise frame-by-frame capture based on timing arrays
+- **Smart Cleanup**: Automatic removal of temporary frame files after video generation
+- **Input Validation**: Comprehensive validation for all input parameters
+- **Duration Limits**: 5-minute maximum to prevent resource abuse
 
-#### Technical Improvements
-- **ES6 Modules**: Modern JavaScript module system
-- **Async/Await**: Promise-based architecture throughout
-- **Stream Processing**: Efficient memory usage for large video files
-- **Process Management**: Proper cleanup and resource management
-- **JSON Schema Validation**: Type-safe parameter validation
-- **MCP 0.6.0 Compatibility**: Latest Model Context Protocol standard
+### Improved
+- **Memory Management**: Better browser cleanup with try-finally blocks
+- **Error Handling**: More robust error recovery and reporting
+- **CSS Animation Support**: Preserves animations while controlling timing
+- **Browser Timeout**: Increased timeout for complex pages (3 minutes)
+- **Frame Accuracy**: 100% timing accuracy with server control
 
-#### Documentation
-- **Comprehensive README**: Installation, usage, and examples
-- **API Documentation**: Detailed parameter descriptions
-- **Troubleshooting Guide**: Common issues and solutions
-- **Contributing Guidelines**: Development setup and contribution process
-
-### Changed
-- **Complete Architecture Overhaul**: From basic screenshot tool to full video production system
-- **Performance Optimization**: 70% faster processing with intelligent frame sampling
-- **Memory Management**: Reduced memory usage by 60% through streaming
-- **Error Messages**: More descriptive and actionable error reporting
+### Fixed
+- **White Screen Issues**: Fixed slide transition problems causing blank frames
+- **Memory Leaks**: Proper browser closure in all scenarios
+- **Slide Detection**: Improved selector matching for various HTML structures
+- **DOM Loading**: Better initialization timing for slide control
 
 ### Security
-- **Input Validation**: Comprehensive parameter sanitization
-- **Path Security**: Safe file path handling and validation
-- **Process Isolation**: Secure subprocess management
-- **Temporary File Security**: Secure cleanup of sensitive data
+- Input sanitization and validation
+- Maximum duration enforcement (300 seconds)
+- Resource cleanup on errors
+- Safe file path handling
 
-## [1.0.0] - 2024-08-15
+### Technical Details
+- MCP SDK 0.5.0 compatibility
+- Puppeteer 22.15.0 with headless Chrome
+- FFmpeg integration for video encoding
+- UUID-based job management
+- Node.js 18+ requirement
 
-### Initial Release
+## [0.9.0] - 2025-01-15 (Beta)
 
-#### Added
-- Basic HTML to video conversion
-- Simple screenshot-based recording
-- FFmpeg integration
-- MCP protocol support
-- Command-line interface
+### Added
+- Beta testing of slideTimings feature
+- Initial server-controlled timing implementation
+- Basic slide detection algorithm
 
-#### Known Issues
-- Limited format support
-- Basic error handling
-- No audio support
-- Fixed resolution only
+## [0.1.0] - 2025-01-14 (Alpha)
 
----
-
-## Development Milestones
-
-### Version 2.1.0 (Planned)
-- [ ] React/Vue component rendering
-- [ ] Real-time streaming capabilities
-- [ ] Cloud storage integration
-- [ ] Batch processing support
-
-### Version 2.2.0 (Planned)
-- [ ] AI-powered optimization
-- [ ] Interactive element simulation
-- [ ] Custom transition effects
-- [ ] Mobile device emulation
-
-### Version 3.0.0 (Future)
-- [ ] WebRTC live streaming
-- [ ] Plugin architecture
-- [ ] Enterprise features
-- [ ] SaaS deployment options
-
----
-
-## Breaking Changes
-
-### v2.0.0
-- **New Dependencies**: Requires FFmpeg system installation
-- **API Changes**: Complete tool parameter restructure
-- **Node.js Version**: Minimum Node.js 18.0.0 required
-- **Configuration**: New MCP server setup format
-
----
-
-## Migration Guide
-
-### From v1.x to v2.0.0
-
-1. **Update Dependencies**:
-   ```bash
-   npm install
-   ```
-
-2. **Install FFmpeg**:
-   ```bash
-   # Ubuntu/Debian
-   sudo apt install ffmpeg
-   
-   # macOS
-   brew install ffmpeg
-   ```
-
-3. **Update MCP Configuration**:
-   ```json
-   {
-     "mcpServers": {
-       "video-recorder": {
-         "command": "node",
-         "args": ["/path/to/video-recorder-mcp/src/index.js"]
-       }
-     }
-   }
-   ```
-
-4. **Update Tool Calls**:
-   - Old: `record_html(html, output)`
-   - New: `record_html_to_video({html, outputPath, preset})`
-
----
-
-## Contributors
-
-Special thanks to all contributors who made this project possible:
-
-- Initial development and architecture
-- FFmpeg integration and optimization
-- Documentation and examples
-- Testing and bug reports
-
-For a complete list of contributors, see the [GitHub contributors page](https://github.com/aihenryai/video-recorder-mcp/contributors).
+### Added
+- Initial development version
+- Basic HTML to video recording
+- Simple duration-based recording
+- FFmpeg integration setup
+- MCP server foundation
